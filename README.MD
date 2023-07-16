@@ -36,7 +36,9 @@ tensorboard --logdir=pretrained/hifigan/logs
 ```
 
 ## 6. 从wav中推理
-如果想要突破声码器的音域限制，那么就更改-ak参数。
+如果想要突破声码器的音域限制，那么就可以-ak参数。
 ```bash
 python inference.py -dm <ddsp model path> -hm <hifigan model path> -i <input.wav> -o <output.wav> -k <keychange (semitones)> -ak <adaptive_key (semitones)>
 ```
+# 注意事项
+仅在单卡下（autodl的3039）测试过，无法保证多卡训练不出错，并且单卡一般已经足够微调。
