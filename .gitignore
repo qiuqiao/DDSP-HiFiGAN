@@ -3,8 +3,6 @@
 *.pt
 *.zip
 /#*
-/pretrained/*
-/data/*
 /.vscode
 /pc_ddsp/exp
 /pc_ddsp/data
