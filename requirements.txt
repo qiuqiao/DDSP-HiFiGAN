@@ -1,0 +1,15 @@
+torch==2.0.1
+numpy==1.24.4
+librosa==0.9.1
+scipy==1.10.1
+tensorboard==2.13.0
+soundfile==0.12.1
+matplotlib==3.7.2
+einops==0.6.1
+gin==0.1.6
+gin-config==0.5.0
+local_attention
+praat-parselmouth==0.4.3
+pyworld==0.3.3
+PyYAML==6.0
+tqdm==4.65.0
