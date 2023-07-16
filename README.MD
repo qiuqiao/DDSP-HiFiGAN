@@ -41,4 +41,4 @@ tensorboard --logdir=pretrained/hifigan/logs
 python inference.py -dm <ddsp model path> -hm <hifigan model path> -i <input.wav> -o <output.wav> -k <keychange (semitones)> -ak <adaptive_key (semitones)>
 ```
 # 注意事项
-仅在单卡下（autodl的3039）测试过，无法保证多卡训练不出错，并且单卡一般已经足够微调。
+仅在单卡下（autodl的3090）测试过，无法保证多卡训练不出错，并且单卡一般已经足够微调。
