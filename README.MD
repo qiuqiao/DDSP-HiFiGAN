@@ -21,13 +21,13 @@ pip install -r requirements.txt
 ## 3. 数据预处理
 把用于训练的wav音频数据放到`data/train/audio`下，用于验证的wav音频数据放到`data/val/audio`下，再执行以下命令：
 ```bash
-python preprocess.py
+python preprocess.py --resample
 ```
 
 ## 4. 微调nsf-HiFiGAN
 目前仅支持从已有的权重微调nsf-HiFiGAN，暂不支持从头开始训练或与ddsp级联训练。
 ```bash
-python train.py
+python train.py --inverse_aug
 ```
 
 ## 5. 可视化微调效果

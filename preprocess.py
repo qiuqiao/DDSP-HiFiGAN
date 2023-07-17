@@ -15,6 +15,7 @@ from pc_ddsp.ddsp.vocoder import load_model, Audio2Mel
 from hifigan.nvSTFT import STFT
 from hifigan.env import AttrDict
 import json
+import soundfile as sf
 
 def parse_args(args=None, namespace=None):
     """Parse command-line arguments."""
@@ -33,6 +34,13 @@ def parse_args(args=None, namespace=None):
         required=False,
         default='pretrained/hifigan/config.json',
         help="path to the hifigan config")
+    parser.add_argument(
+        "-r",
+        "--resample",
+        required=False,
+        action='store_true',
+        help="resample the wav file to target sampling rate",
+    )
     return parser.parse_args(args=args, namespace=namespace)
 
 def preprocess(
@@ -53,7 +61,8 @@ def preprocess(
         n_fft,
         n_mel_channels,
         mel_fmin,
-        mel_fmax):
+        mel_fmax,
+        resample):
     
     # load ddsp model
     model, args = load_model(model_path, device=device)
@@ -99,6 +108,18 @@ def preprocess(
         
         # load audio
         x, _ = librosa.load(path_srcfile, sr=sampling_rate)
+        # convert to mono
+        if len(x.shape) > 1:
+            x = x[0]
+        # resample
+        if resample:
+            if sampling_rate != h['sampling_rate']:
+                x_save = librosa.resample(x, sampling_rate, h['sampling_rate'])
+            else:
+                x_save = x
+        else:
+            x_save=x
+        sf.write(path_srcfile, x_save, h['sampling_rate'])
         x_t = torch.from_numpy(x).float().to(device)
         x_t = x_t.unsqueeze(0).unsqueeze(0) # (T,) --> (1, 1, T)
 
@@ -159,6 +180,7 @@ def preprocess(
             # save npy
             os.makedirs(os.path.dirname(path_melfile), exist_ok=True)
             np.save(path_melfile, mel)
+            # print(mel.shape)
             os.makedirs(os.path.dirname(path_f0file), exist_ok=True)
             np.save(path_f0file, f0)
         else:
@@ -205,6 +227,7 @@ if __name__ == '__main__':
     train_path = args.data.train_path
     valid_path = args.data.valid_path
     model_path = cmd.model
+    resample = cmd.resample
     
     # run
     for path in [train_path, valid_path]:
@@ -231,4 +254,5 @@ if __name__ == '__main__':
             n_fft,
             n_mel_channels,
             mel_fmin,
-            mel_fmax)
+            mel_fmax,
+            resample)

@@ -134,9 +134,9 @@ def train(rank, a, h):
             if rank == 0:
                 start_b = time.time()
             x, y, f0, y_mel = batch
+            if a.inverse_aug and np.random.random()<0.5:
+                y=y*-1
             # print(x.shape,f0.shape)
-            if f0.shape[-1]!=32:# 我也不知道为什么会有这个bug，排查不出来，只好先跳过了。难道是skip了？
-                continue
             x = torch.autograd.Variable(x.to(device, non_blocking=True))
             y = torch.autograd.Variable(y.to(device, non_blocking=True))
             f0 = torch.autograd.Variable(f0.to(device, non_blocking=True))
@@ -260,6 +260,7 @@ def main():
     parser.add_argument('--summary_interval', default=10, type=int)
     parser.add_argument('--validation_interval', default=500, type=int)
     parser.add_argument('--fine_tuning', default=True, type=bool)
+    parser.add_argument('--inverse_aug', action='store_true')
 
     a = parser.parse_args()
 
