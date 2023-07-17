@@ -1,6 +1,6 @@
-# DDSP-HiFiGAN：基于PC-DDSP和nsf-HiFiGAN的声码器
+# DDSP-HiFiGAN：基于PC-DDSP和NSF-HiFiGAN的声码器
 
-DDSP-HiFiGAN是一个基于[PC-DDSP](https://github.com/yxlllc/pc-ddsp)和nsf-[HiFiGAN](https://github.com/jik876/hifi-gan)的声码器，由DSPGAN所启发，同时具有PC-DDSP无限变调的优势和nsf-HiFiGAN高音质的优势。
+DDSP-HiFiGAN是一个基于[PC-DDSP](https://github.com/yxlllc/pc-ddsp)和nsf-[HiFiGAN](https://github.com/jik876/hifi-gan)的声码器，由DSPGAN所启发，同时具有PC-DDSP无限变调的优势和NSF-HiFiGAN高音质的优势。
 
 # 使用方法
 
@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ### PC-DDSP模型
 可以依照[pc-ddsp](https://github.com/yxlllc/pc-ddsp)来训练一个ddsp模型, 把训练好的模型权重文件`model_xxx.pt`和配置文件`config.yaml`一同放到目录`pretrained/ddsp`下。
 
-### nsf-HiFiGAN模型
+### NSF-HiFiGAN模型
 
 可以下载openvpi训练的[社区声码器](https://github.com/openvpi/vocoders/releases)，使用时请遵循相关协议。把配置文件`config.json`、鉴别器权重`do_xxx`、生成器权重`g_xxx`一同放到目录`pretrained/hifigan`下。
 
@@ -24,8 +24,8 @@ pip install -r requirements.txt
 python preprocess.py
 ```
 
-## 4. 微调nsf-HiFiGAN
-目前仅支持从已有的权重微调nsf-HiFiGAN，暂不支持从头开始训练或与ddsp级联训练。
+## 4. 微调NSF-HiFiGAN
+目前仅支持从已有的权重微调NSF-HiFiGAN，暂不支持从头开始训练或与ddsp级联训练。
 ```bash
 python train.py
 ```
