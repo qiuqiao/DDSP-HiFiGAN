@@ -27,7 +27,7 @@ def parse_args(args=None, namespace=None):
         "--hifigan_model_path",
         type=str,
         required=False,
-        default='pretrained/hifigan/model',
+        default='pretrained/hifigan/model/g_best',
         help="path to the nsf-hifigan model file",
     )
     parser.add_argument(
@@ -59,6 +59,13 @@ def parse_args(args=None, namespace=None):
         required=False,
         default=0,
         help="adapt to a higher vocal range, mostly equals to -k (number of semitones)",
+    )
+    parser.add_argument(
+        "-d",
+        "--ddsp_output",
+        required=False,
+        action='store_true',
+        help="Output the intermediate result of ddsp",
     )
     return parser.parse_args(args=args, namespace=namespace)
     
@@ -129,10 +136,11 @@ if __name__ == '__main__':
      
     # forward and save the output
     with torch.no_grad():
-        print(mel.shape,f0.shape)
+        # print(mel.shape,f0.shape)
         signal, _, (s_h, s_n) = model(mel, f0)
         signal = signal.squeeze().cpu().numpy()
-    sf.write('ddsp_'+cmd.output,signal ,44100)
+    if cmd.ddsp_output:
+        sf.write('ddsp_'+cmd.output,signal ,44100)
     
     #load hifigan config
     config_file = os.path.join(os.path.split(cmd.hifigan_model_path)[0], 'config.json')
