@@ -1,6 +1,6 @@
 # DDSP-HiFiGAN：基于PC-DDSP和NSF-HiFiGAN的声码器
 
-DDSP-HiFiGAN是一个基于[PC-DDSP](https://github.com/yxlllc/pc-ddsp)和nsf-[HiFiGAN](https://github.com/jik876/hifi-gan)的声码器，由DSPGAN所启发，同时具有PC-DDSP无限变调的优势和NSF-HiFiGAN高音质的优势。
+DDSP-HiFiGAN是一个基于[PC-DDSP](https://github.com/yxlllc/pc-ddsp)和NSF-[HiFiGAN](https://github.com/jik876/hifi-gan)的声码器，由DSPGAN所启发，同时具有PC-DDSP无限变调的优势和NSF-HiFiGAN高音质的优势。
 
 # 使用方法
 
